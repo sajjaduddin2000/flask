@@ -13,7 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/api/data")
+@app.get("/")
 def get_data():
     return {"message": "Hello from FastAPI!"}
 
