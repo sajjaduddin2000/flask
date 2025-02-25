@@ -1,22 +1,13 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 import os
+import uvicorn
+from fastapi import FastAPI
 
 app = FastAPI()
 
-# Allow frontend requests
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 @app.get("/")
-def get_data():
-    return {"message": "Hello from FastAPI!"}
+def read_root():
+    return {"message": "FastAPI is running on Azure!"}
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    port = int(os.environ.get("PORT", 8000))  # Use PORT from Azure or default to 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
